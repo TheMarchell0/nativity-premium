@@ -1,0 +1,25 @@
+.header {
+  background-color: #09090d;
+}
+
+.wrapper {
+  padding-top: 17px;
+  padding-bottom: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button {
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.1;
+  max-width: 231px;
+  width: 100%;
+  border-radius: 100px;
+  background: #09090d;
+  border: 1px solid #FFFFFF;
+  padding: 15px 0;
+}

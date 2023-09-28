@@ -1,0 +1,110 @@
+.inputWrapper {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.inputWrapperCheckbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.input {
+  width: 100%;
+  border-radius: 100px;
+  background: #FFF;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: lining-nums proportional-nums;
+  line-height: 1.2;
+  height: 50px;
+  padding: 0 30px;
+
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder,
+  &::placeholder {
+    color: #000;
+    font-weight: 400;
+  }
+
+  &[type="checkbox"] {
+    position: absolute !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    white-space: nowrap !important;
+    -webkit-clip-path: inset(100%) !important;
+    clip-path: inset(100%) !important;
+    clip: rect(0 0 0 0) !important;
+    overflow: hidden !important;
+    appearance: none !important;
+    display: none !important;
+
+    &:checked + label::after {
+      opacity: 1;
+    }
+  }
+}
+
+.label {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  position: relative;
+  padding-left: 40px;
+  display: block;
+
+  & a {
+    color: inherit;
+    transition: 0.1s linear;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+  }
+
+  &::before {
+    width: 30px;
+    height: 30px;
+    background-color: #FFF;
+    border-radius: 50%;
+    left: 0;
+    top: -1px;
+  }
+
+  &::after {
+    background: url('/images/mark-icon.svg') no-repeat center;
+    width: 14px;
+    height: 17px;
+    top: 6px;
+    left: 8px;
+    opacity: 0;
+  }
+}
+
+.error {
+  max-width: 254px;
+  width: 100%;
+  height: 11px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 5px;
+  color: red;
+  opacity: 0;
+  margin-left: 30px;
+
+  &_show {
+    opacity: 1;
+  }
+}

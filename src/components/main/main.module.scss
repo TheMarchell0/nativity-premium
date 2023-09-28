@@ -1,0 +1,71 @@
+.wrapper {
+  background: url('/images/main-bg.png') no-repeat center;
+  background-size: cover;
+  position: relative;
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi) {
+    background: url('/images/main-bg@2x.png') no-repeat center;
+    background-size: cover;
+  }
+
+  &::after {
+    content: 'Nativity Tech';
+    display: block;
+    transform: translateY(-50%) rotate(-90deg);
+    position: absolute;
+    top: 50%;
+    right: -5px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.1;
+    text-decoration-line: underline;
+  }
+}
+
+.title {
+  font-size: 80px;
+  font-weight: 200;
+  line-height: 1.1;
+  padding-top: 87px;
+  margin-bottom: 31px;
+
+  & span {
+    font-weight: 500;
+  }
+}
+
+.subtitle {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.1;
+  max-width: 628px;
+  width: 100%;
+  margin-bottom: 21px;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 423px;
+  width: 100%;
+}
+
+.buttonWrapper {
+  padding: 30px 0 190px;
+}
+
+.button {
+  border-radius: 100px;
+  border: 1px solid #000;
+  background: #D1F228;
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.1;
+  padding: 10px 0;
+  max-width: 180px;
+  width: 100%;
+}
