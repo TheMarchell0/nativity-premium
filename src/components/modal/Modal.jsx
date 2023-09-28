@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef} from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import css from './modal.module.scss';
 import Input from '../../components/input/Input';
@@ -28,18 +28,6 @@ const Modal = () => {
         return response.text();
     };
 
-    useEffect(() => {
-        if (open && contentRef.current) {
-            const modalHeight = contentRef.current.offsetHeight;
-            const windowHeight = window.innerHeight;
-            if (modalHeight > windowHeight) {
-                setScrollable(true);
-            } else {
-                setScrollable(false);
-            }
-        }
-    }, [open]);
-
     const toggleBodyScroll = (disable) => {
         if (disable) {
             document.body.classList.add('disable-scroll');
@@ -48,6 +36,7 @@ const Modal = () => {
         }
     };
     const handleClose = () => {
+        setScrollable(false);
         overlayRef.current.style.animation = 'fadeIn 0.3s reverse';
         contentRef.current.style.animation = 'slideUp 0.3s reverse';
         setOpen(false);
@@ -56,7 +45,20 @@ const Modal = () => {
     const handleOpen = () => {
         setOpen(true);
         toggleBodyScroll(true);
+        setTimeout(() => {
+            if (contentRef.current) {
+                const modalHeight = contentRef.current.offsetHeight;
+                const windowHeight = window.innerHeight;
+                if (modalHeight > windowHeight) {
+                    setScrollable(true);
+                } else {
+                    setScrollable(false);
+                }
+            }
+        }, 50);
     };
+
+
 
     const methods = useForm({mode: "onChange"});
 
