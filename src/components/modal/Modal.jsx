@@ -1,7 +1,7 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {useForm, FormProvider} from "react-hook-form";
-import css from "./modal.module.scss";
-import Input from "../../components/input/Input";
+import React, { useState, useRef, useEffect } from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import css from './modal.module.scss';
+import Input from '../../components/input/Input';
 
 const Modal = () => {
     const [open, setOpen] = useState(false);
@@ -16,6 +16,8 @@ const Modal = () => {
     const openSuccessModalFunc = () => setOpenSuccessModal(true);
 
     const formRef = useRef();
+
+    const [showLoader, setShowLoader] = useState(false);
 
     const callScriptFunction = async (url, formElement) => {
         const response = await fetch(url, {
@@ -65,7 +67,9 @@ const Modal = () => {
     } = methods;
 
     const onSubmit = async (data) => {
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbwg1jZQ7OQ5nEt_pdicH-Wn54BDOWzkBaF-HvPBVRhCgOj6cbFodo97tA6xiglcOTaE/exec';
+        setShowLoader(true);
+
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxW72e2UteLpG-cFjLBtbL3tqLcOj-Mlri3k3okdzRx_xXu4t__NsKF0BbhSSeeZKg/exec';
 
         await callScriptFunction(scriptUrl, formRef.current);
 
@@ -79,7 +83,10 @@ const Modal = () => {
 
         handleClose();
         openSuccessModalFunc();
+
+        setShowLoader(false);
     };
+
 
     return (
         <>
@@ -89,8 +96,13 @@ const Modal = () => {
                     <div ref={overlayRef} className="modal__overlay" onClick={handleClose}></div>
                     <div
                         ref={contentRef}
-                        className={`modal__content ${scrollable ? css.scrollableContent : ''} ${css.content}`}
+                        className={`modal__content ${scrollable ? css.scrollableContent : ''} ${showLoader ? 'loading' : ''} ${css.content}`}
                     >
+                        {showLoader && (
+                            <div className="modal__loader">
+                                <span></span>
+                            </div>
+                        )}
                         <button className={`modal__close ${css.close}`} onClick={handleClose}>
                             <img src={require('../../images/close.svg').default} alt="Закрыть"/>
                         </button>
