@@ -15,6 +15,17 @@ const Modal = () => {
     };
     const openSuccessModalFunc = () => setOpenSuccessModal(true);
 
+    const formRef = useRef();
+
+    const callScriptFunction = async (url, formElement) => {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: new FormData(formElement),
+        });
+
+        return response.text();
+    };
+
     useEffect(() => {
         if (open && contentRef.current) {
             const modalHeight = contentRef.current.offsetHeight;
@@ -53,8 +64,11 @@ const Modal = () => {
         setValue,
     } = methods;
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbwg1jZQ7OQ5nEt_pdicH-Wn54BDOWzkBaF-HvPBVRhCgOj6cbFodo97tA6xiglcOTaE/exec';
+
+        await callScriptFunction(scriptUrl, formRef.current);
+
         reset({
             company_or_brand: '',
             email: '',
@@ -63,8 +77,8 @@ const Modal = () => {
         });
         setValue("phone", "");
 
-        handleClose(); // закрытие первой модалки
-        openSuccessModalFunc(); // открытие второй модалки
+        handleClose();
+        openSuccessModalFunc();
     };
 
     return (
@@ -80,15 +94,17 @@ const Modal = () => {
                         <button className={`modal__close ${css.close}`} onClick={handleClose}>
                             <img src={require('../../images/close.svg').default} alt="Закрыть"/>
                         </button>
-                        <p className={css.title}>Получить доступ к Nativity Premium  </p>
-                        <p className={css.description}>Готовы запускать рекламу? Отправьте запрос, чтобы получить доступ к кабинету</p>
+                        <p className={css.title}>Получить доступ к Nativity Premium </p>
+                        <p className={css.description}>Готовы запускать рекламу? Отправьте запрос, чтобы получить доступ
+                            к кабинету</p>
                         <div className={`form__content ${css.formContentWrapper}`}>
                             <p className={css.formTitle}>Оставить заявку</p>
                             <FormProvider {...methods}>
-                                <form onSubmit={methods.handleSubmit(onSubmit)} className="form">
+                                <form ref={formRef} onSubmit={methods.handleSubmit(onSubmit)} className="form">
                                     <Input name="company_or_brand" placeholder="Компания или бренд" methods={methods}/>
                                     <Input isPattern type="email" name="email" placeholder="E-mail" methods={methods}/>
-                                    <Input isPattern type="url" name="url" placeholder="Ссылка на сайт" methods={methods}/>
+                                    <Input isPattern type="url" name="url" placeholder="Ссылка на сайт"
+                                           methods={methods}/>
                                     <Input isPattern type="tel" name="phone" placeholder="Телефон" methods={methods}/>
                                     <Input type="checkbox" name="personal_data" methods={methods}/>
                                     <button className="form__button" type="submit" disabled={!isDirty || !isValid}>
