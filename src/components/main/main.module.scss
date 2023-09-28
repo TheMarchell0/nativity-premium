@@ -20,6 +20,13 @@
     font-weight: 400;
     line-height: 1.1;
     text-decoration-line: underline;
+
+    @media (max-width: 550px) {
+      transform: rotate(-20deg);
+      top: 30px;
+      right: 30px;
+      font-size: 16px;
+    }
   }
 }
 
@@ -33,6 +40,10 @@
   & span {
     font-weight: 500;
   }
+
+  @media (max-width: 767px) {
+    font-size: 46px;
+  }
 }
 
 .subtitle {
@@ -42,6 +53,11 @@
   max-width: 628px;
   width: 100%;
   margin-bottom: 21px;
+
+  @media (max-width: 767px) {
+    font-size: 25px;
+    max-width: 430px;
+  }
 }
 
 .description {
@@ -54,6 +70,10 @@
 
 .buttonWrapper {
   padding: 30px 0 190px;
+
+  @media (max-width: 400px) {
+    padding: 30px 0 100px;
+  }
 }
 
 .button {

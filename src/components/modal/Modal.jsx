@@ -87,13 +87,18 @@ const Modal = () => {
         setShowLoader(false);
     };
 
+    const handleOverlayClick = () => {
+        handleClose();
+        toggleBodyScroll(false);
+    };
+
 
     return (
         <>
             <button onClick={handleOpen}>Открыть модалку с формой</button>
             {open && (
                 <div className="modal">
-                    <div ref={overlayRef} className="modal__overlay" onClick={handleClose}></div>
+                    <div ref={overlayRef} className="modal__overlay" onClick={handleOverlayClick}></div>
                     <div
                         ref={contentRef}
                         className={`modal__content ${scrollable ? css.scrollableContent : ''} ${showLoader ? 'loading' : ''} ${css.content}`}
@@ -103,7 +108,7 @@ const Modal = () => {
                                 <span></span>
                             </div>
                         )}
-                        <button className={`modal__close ${css.close}`} onClick={handleClose}>
+                        <button className={`modal__close ${css.close}`} onClick={handleOverlayClick}>
                             <img src={require('../../images/close.svg').default} alt="Закрыть"/>
                         </button>
                         <p className={css.title}>Получить доступ к Nativity Premium </p>
@@ -132,7 +137,7 @@ const Modal = () => {
                 <div className="modal">
                     <div className="modal__overlay" onClick={closeSuccessModal}></div>
                     <div className={`modal__content ${css.content} ${css.content_confirm}`}>
-                        <button className={`modal__close ${css.close}`} onClick={closeSuccessModal}>
+                        <button className={`modal__close ${css.close} ${css.close_confirm}`} onClick={closeSuccessModal}>
                             <img src={require('../../images/close.svg').default} alt="Закрыть"/>
                         </button>
                         <p className={`${css.title} ${css.title_confirm}`}>Ваш запрос отправлен!</p>

@@ -5,8 +5,16 @@
   border-radius: 30px;
   padding: 50px 60px;
 
+  @media (max-width: 550px) {
+    padding: 30px;
+  }
+
   &_confirm {
     padding: 72px 60px 95px;
+
+    @media (max-width: 550px) {
+      padding: 50px;
+    }
   }
 }
 
@@ -21,6 +29,10 @@
   &_confirm {
     max-width: initial;
   }
+
+  @media (max-width: 550px) {
+    font-size: 26px;
+  }
 }
 
 .description {
@@ -30,6 +42,11 @@
   max-width: 522px;
   width: 100%;
   margin-bottom: 57px;
+
+  @media (max-width: 550px) {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
 
   &_confirm {
     margin-bottom: 0;
@@ -50,6 +67,18 @@
 .close {
   right: 32px;
   top: 38px;
+
+  & img {
+    @media (max-width: 550px) {
+      width: 20px;
+    }
+  }
+
+  &_confirm {
+    @media (max-width: 590px) {
+      top: 25px;
+    }
+  }
 }
 
 .scrollableContent {
@@ -94,5 +123,9 @@ only screen and (min-resolution: 192dpi) {
   .content {
     background: url('/images/modal-bg@2x.png') no-repeat center;
     background-size: 100%;
+
+    @media (max-width: 550px) {
+      background-size: cover;
+    }
   }
 }

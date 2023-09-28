@@ -116,6 +116,10 @@ button {
 .form__content {
   max-width: 310px;
   width: 100%;
+
+  @media (max-width: 550px) {
+    max-width: initial;
+  }
 }
 
 .form__button {
@@ -131,6 +135,10 @@ button {
   font-weight: 500;
   line-height: 1.1;
   margin-top: 35px;
+
+  @media (max-width: 550px) {
+    margin: 35px auto 0;
+  }
 
   &[disabled] {
     pointer-events: none;
