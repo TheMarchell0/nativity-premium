@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
-import {gsap} from 'gsap';
+import React, { useEffect, useContext } from 'react';
+import { gsap } from 'gsap';
 import css from './main.module.scss';
-import Modal from "../modal/Modal";
+import ModalContext from '../modalContext/ModalContext';
 
 const Main = () => {
+    const { openModal } = useContext(ModalContext);
 
     useEffect(() => {
         gsap.from('.gsap-title', {y: -40, opacity: 0, duration: 0.5});
@@ -41,9 +42,8 @@ const Main = () => {
                     <p className={`gsap-description ${css.description}`}>мы объединяем технологии и персональный подход для проведения
                         эффективных рекламных кампаний в Telegram</p>
                     <div className={`gsap-button ${css.buttonWrapper}`}>
-                        <button className={css.button}>Отправить запрос</button>
+                        <button className={css.button} onClick={openModal}>Отправить запрос</button>
                     </div>
-                    <Modal/>
                 </div>
             </div>
         </main>

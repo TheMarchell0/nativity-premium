@@ -1,10 +1,10 @@
 import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 import Footer from "./components/footer/Footer";
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import gsap from 'gsap';
-
-
+import { ModalProvider } from "./components/modalContext/ModalContext";
+import Modal from "./components/modal/Modal";
 
 function App() {
     useEffect(() => {
@@ -18,10 +18,13 @@ function App() {
     }, []);
 
     return (
-        <div className="App" style={{opacity: 0}}>
-            <Header/>
-            <Main/>
-            <Footer/>
+        <div className="App" style={{ opacity: 0 }}>
+            <ModalProvider>
+                <Header />
+                <Main />
+                <Modal />
+                <Footer />
+            </ModalProvider>
         </div>
     );
 }

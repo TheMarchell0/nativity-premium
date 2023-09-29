@@ -1,10 +1,10 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import css from './modal.module.scss';
 import Input from '../../components/input/Input';
+import ModalContext from '../modalContext/ModalContext';
 
 const Modal = () => {
-    const [open, setOpen] = useState(false);
     const overlayRef = useRef(null);
     const contentRef = useRef(null);
     const [scrollable, setScrollable] = useState(false);
@@ -12,8 +12,12 @@ const Modal = () => {
     const closeSuccessModal = () => {
         setOpenSuccessModal(false);
         toggleBodyScroll(false);
+        document.body.classList.remove('disable-scroll');
     };
-    const openSuccessModalFunc = () => setOpenSuccessModal(true);
+    const openSuccessModalFunc = () => {
+        setOpenSuccessModal(true);
+    };
+    const { isOpen, closeModal } = useContext(ModalContext);
 
     const formRef = useRef();
 
@@ -35,35 +39,45 @@ const Modal = () => {
             document.body.classList.remove('disable-scroll');
         }
     };
+
     const handleClose = () => {
         setScrollable(false);
         overlayRef.current.style.animation = 'fadeIn 0.3s reverse';
         contentRef.current.style.animation = 'slideUp 0.3s reverse';
-        setOpen(false);
-    };
 
-    const handleOpen = () => {
-        setOpen(true);
-        toggleBodyScroll(true);
         setTimeout(() => {
-            if (contentRef.current) {
-                const modalHeight = contentRef.current.offsetHeight;
-                const windowHeight = window.innerHeight;
-                if (modalHeight > windowHeight) {
-                    setScrollable(true);
-                } else {
-                    setScrollable(false);
-                }
-            }
-        }, 50);
+            closeModal();
+        }, 300);
     };
 
+    useEffect(() => {
+        if (isOpen || openSuccessModal) {
+            toggleBodyScroll(true);
+        } else {
+            toggleBodyScroll(false);
+        }
+    }, [isOpen, openSuccessModal]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (contentRef.current && window.innerHeight < contentRef.current.offsetHeight) {
+                setScrollable(true);
+            } else {
+                setScrollable(false);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
 
-    const methods = useForm({mode: "onChange"});
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [isOpen]);
+
+    const methods = useForm({ mode: 'onChange' });
 
     const {
-        formState: {isDirty, isValid},
+        formState: { isDirty, isValid },
         reset,
         setValue,
     } = methods;
@@ -81,7 +95,7 @@ const Modal = () => {
             url: '',
             phone: '',
         });
-        setValue("phone", "");
+        setValue('phone', '');
 
         handleClose();
         openSuccessModalFunc();
@@ -91,14 +105,11 @@ const Modal = () => {
 
     const handleOverlayClick = () => {
         handleClose();
-        toggleBodyScroll(false);
     };
-
 
     return (
         <>
-            <button onClick={handleOpen}>Открыть модалку с формой</button>
-            {open && (
+            {isOpen && (
                 <div className="modal">
                     <div ref={overlayRef} className="modal__overlay" onClick={handleOverlayClick}></div>
                     <div
@@ -111,7 +122,7 @@ const Modal = () => {
                             </div>
                         )}
                         <button className={`modal__close ${css.close}`} onClick={handleOverlayClick}>
-                            <img src={require('../../images/close.svg').default} alt="Закрыть"/>
+                            <img src={require('../../images/close.svg').default} alt="Закрыть" />
                         </button>
                         <p className={css.title}>Получить доступ к Nativity Premium </p>
                         <p className={css.description}>Готовы запускать рекламу? Отправьте запрос, чтобы получить доступ
@@ -140,7 +151,7 @@ const Modal = () => {
                     <div className="modal__overlay" onClick={closeSuccessModal}></div>
                     <div className={`modal__content ${css.content} ${css.content_confirm}`}>
                         <button className={`modal__close ${css.close} ${css.close_confirm}`} onClick={closeSuccessModal}>
-                            <img src={require('../../images/close.svg').default} alt="Закрыть"/>
+                            <img src={require('../../images/close.svg').default} alt="Закрыть" />
                         </button>
                         <p className={`${css.title} ${css.title_confirm}`}>Ваш запрос отправлен!</p>
                         <p className={`${css.description} ${css.description_confirm}`}>
