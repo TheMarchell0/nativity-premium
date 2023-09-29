@@ -174,3 +174,23 @@ button {
     transform: rotate(360deg);
   }
 }
+
+@keyframes reverseFadeIn {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes reverseSlideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(5%);
+  }
+}

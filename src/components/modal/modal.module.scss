@@ -6,7 +6,7 @@
   padding: 50px 60px;
 
   @media (max-width: 550px) {
-    padding: 30px;
+    padding: 60px 30px;
   }
 
   &_confirm {
@@ -69,8 +69,8 @@
   top: 38px;
 
   @media (max-width: 590px) {
-    top: 8px;
-    right: 10px;
+    top: 25px;
+    right: 20px;
   }
 
   & img {
@@ -128,10 +128,6 @@
 only screen and (min-resolution: 192dpi) {
   .content {
     background: url('/images/modal-bg@2x.png') no-repeat center;
-    background-size: 100%;
-
-    @media (max-width: 550px) {
-      background-size: cover;
-    }
+    background-size: cover;
   }
 }
